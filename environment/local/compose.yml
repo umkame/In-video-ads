@@ -1,0 +1,23 @@
+services:
+  # Data storage
+  mongodb:
+    labels:
+      com.example.appname: IVA-Mongo
+    extends:
+      file: ../common/mongo.yml
+      service: mongodb
+    volumes:
+      - "./run/data/mongodb:/mongodb_data"
+  # Event bus
+  kafka:
+    extends:
+      file: ../common/kafka.yml
+      service: kafka
+    volumes:
+      - "./run/data/kafka:/kafka_data"
+  # Data processing
+  spark:
+    extends:
+      file: ../common/apache-spark.yml
+      service: spark
+
