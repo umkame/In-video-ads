@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: video-uploader
+  kafka:
+    # 0.0.0.0:29092
+    bootstrap-servers: 0.0.0.0:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    security:
+      protocol: PLAINTEXT
+  data:
+    mongodb:
+      uri: mongodb://admin:admin1!@localhost:27017/iva?authSource=iva
+
+server:
+  port: 8082
+
+file:
+  storage:
+    basePath: /Users/a1611369/workspace/MY/common/in-video-ads/environment/local/run/data/storage
+
+messaging:
+  topic:
+    sendVideo: ready_videos
