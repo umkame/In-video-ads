@@ -1,11 +1,14 @@
+version: '3.5'
+
 services:
   # Data storage
   mongodb:
-    labels:
-      com.example.appname: IVA-Mongo
     extends:
       file: ../common/mongo.yml
       service: mongodb
+    env_file: local.env
+    ports:
+      - "27017:27017"
     volumes:
       - "./run/data/mongodb:/mongodb_data"
   # Event bus
@@ -20,4 +23,13 @@ services:
     extends:
       file: ../common/apache-spark.yml
       service: spark
-
+  # Development
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 18082:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_NAME: local
